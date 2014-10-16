@@ -48,10 +48,15 @@
       </div>
     </div>
 
-    <div class="container">
-      <div class="jumbotron" id="imgTools">
+    <div class="container" id="imgTools">
+      <div class="jumbotron">
         <h1>Upload Image</h1>
         <br>
+        <div class="alert" role="alert"></div>
+        <br>
+        <div class="glp">
+          <span class="glyphicon glyphicon-repeat glyphicon-bg reload"></span>
+        </div>
         <form role="form" method="POST" action="" enctype="multipart/form-data">
           <input type="hidden" name="pctname" class="pctname" value="" />
           <input type="text" name="name" class="form-control" value="" placeholder="Picture Name" />
@@ -63,7 +68,7 @@
                 <span class="input-group-addon">
                   <label>Size:<label>
                 </span>
-                <input type="text" name="size" class="form-control" value="210 mm X 297 mm" placeholder="210 mm X 297 mm" />
+                <input type="text" name="size" class="form-control" value="" placeholder="" />
               </div>
             </div>
             <div class="col-lg-4">
@@ -71,7 +76,7 @@
                 <span class="input-group-addon">
                   <label>Technique:</label>
                 </span>
-                <input type="text" name="tech" value="Penna a Sfera" class="form-control" placeholder="Penna a Sfera" />
+                <input type="text" name="tech" value="" class="form-control" placeholder="" />
               </div>
             </div>
             <div class="col-lg-4">
@@ -79,7 +84,7 @@
                 <span class="input-group-addon">
                   <label>Material:</label>
                 </span>
-                <input type="text" name="mat" class="form-control" value="Carta" placeholder="Carta" />
+                <input type="text" name="mat" class="form-control" value="" placeholder="" />
               </div>
             </div>
           </div>
@@ -93,15 +98,25 @@
             <input type="file" name="img" required />
             <p class="help-block">Max File Size: 1MB</p>
           </div>
-
-          <div class="response" style="display:none;">
-            <img src="" style="margin:10px 0 20px 0"/>
+          <br>
+          <div class="preview">
+            <img src="" />
           </div>
-          
+          <br>
           <input type="hidden" value="submit" name="submit" />
           <button type="submit"  class="btn btn-primary btn-lg">Submit</button>
         </form>
       </div>
+
+      <!-- loader -->
+      <div class="modal fade" id="loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <h1>
+            <span class="label label-default"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</span>
+          </h1>
+        </div>
+      </div><!-- /loader -->
+
     </div><!--/.container -->
 
   </body>
