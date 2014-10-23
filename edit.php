@@ -1,3 +1,8 @@
+<?php 
+  include 'lib/ImgManager.class.php';
+  $pct = new ImgManager();
+  $value = $pct->LoadImage((int)$_GET['id']);
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -63,38 +68,45 @@
         </div>
 
         <form role="form" method="POST" action="" enctype="multipart/form-data">
+          <div class="checkbox">
+            <label>
+              <input type="checkbox" name="status" <?php if($value["status"] == 1): ?>checked<?php endif; ?>> Publish?
+            </label>
+          </div>
+
           <div class="input-group">
             <span class="input-group-addon">
               <label>Title:<label>
             </span>
-            <input type="text" name="title" class="form-control" value="" placeholder="Picture Title" required />
-          </div>
+              <input type="hidden" value="<?php echo $value['id']; ?>" name="id" />
+              <input type="text" name="title" class="form-control" value="<?php echo $value['title']; ?>" placeholder="Picture Title" required />
+            </div>
           <br>
 
           <div class="input-group">
             <span class="input-group-addon">
               <label>Meta:<label>
             </span>
-            <input type="text" name="meta" class="form-control" value="" placeholder="Meta" />
+            <input type="text" name="meta" class="form-control" value="<?php echo $value["meta"]; ?>" placeholder="" />
           </div>
           <br>
 
-          <textarea class="form-control form-control-textarea" name="description" placeholder="Description"></textarea>
+          <textarea class="form-control form-control-textarea" name="description" placeholder="Description"><?php echo trim($value['description']); ?></textarea>
           <br>
 
           <div class="form-group">
             <label for="img">File input</label>
-            <input type="file" name="img" required />
+            <input type="file" name="img"  />
             <p class="help-block">Max File Size: 1MB</p>
             <p class="help-block">(png|jpg|jpeg|gif)</p>
           </div>
           <br>
-          <div class="preview preview-hide">
-            <input type="hidden" name="pctname" class="pctname" value="" />
-            <img src="" />
+          <div class="preview">
+            <input type="hidden" name="pctname" class="pctname" value="<?php echo $value['file_name']; ?>" />
+            <img src="gallery/th_<?php echo $value['file_name']; ?>" />
           </div>
           <br>
-          <input type="hidden" value="add" name="submit" />
+          <input type="hidden" value="edit" name="submit" />
           <button type="submit"  class="btn btn-primary btn-lg">Submit</button>
         </form>
       </div>

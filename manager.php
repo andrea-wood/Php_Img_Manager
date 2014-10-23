@@ -1,3 +1,7 @@
+<?php 
+  include 'lib/ImgManager.class.php';
+  $pct = new ImgManager();
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,8 +46,8 @@
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.php">Add New</a></li>
-            <li><a href="manager.php">Manager</a></li>
+            <li><a href="index.php">Add New</a></li>
+            <li class="active"><a href="manager.php">Manager</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -51,52 +55,31 @@
 
     <div class="container" id="imgTools">
       <div class="jumbotron">
-        <h1>Upload Image</h1>
-        <br>
-
-        <div class="alert" role="alert">
-          <p></p>
-          <br>
-          <div class="glp">
-            <span class="glyphicon glyphicon-repeat glyphicon-bg reload"></span>
-          </div>
-        </div>
-
-        <form role="form" method="POST" action="" enctype="multipart/form-data">
-          <div class="input-group">
-            <span class="input-group-addon">
-              <label>Title:<label>
-            </span>
-            <input type="text" name="title" class="form-control" value="" placeholder="Picture Title" required />
-          </div>
-          <br>
-
-          <div class="input-group">
-            <span class="input-group-addon">
-              <label>Meta:<label>
-            </span>
-            <input type="text" name="meta" class="form-control" value="" placeholder="Meta" />
-          </div>
-          <br>
-
-          <textarea class="form-control form-control-textarea" name="description" placeholder="Description"></textarea>
-          <br>
-
-          <div class="form-group">
-            <label for="img">File input</label>
-            <input type="file" name="img" required />
-            <p class="help-block">Max File Size: 1MB</p>
-            <p class="help-block">(png|jpg|jpeg|gif)</p>
-          </div>
-          <br>
-          <div class="preview preview-hide">
-            <input type="hidden" name="pctname" class="pctname" value="" />
-            <img src="" />
-          </div>
-          <br>
-          <input type="hidden" value="add" name="submit" />
-          <button type="submit"  class="btn btn-primary btn-lg">Submit</button>
-        </form>
+        <table class="table table-striped">
+          <tbody>
+            <?php foreach($pct->ListImage() as $value): ?>         
+                <tr <?php if($value['status'] == 0): ?>class="warning"<?php endif; ?> data-id="<?php echo $value["id"]; ?>">
+                  <td><img class="th_list pull-left" src="gallery/th_<?php echo $value['file_name']; ?>" alt="" /></td>
+                  <td><h3><?php echo $value['title']; ?></h3></td>
+                  <td>
+                    <div class="dropdown pull-right">
+                      <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+                        Actions
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="edit.php?id=<?php echo $value['id']; ?>">Edit</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="publish-item">Publish</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="unpublish-item">Unpublish</a></li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#" class="remove-item"><button type="button" class="btn btn-danger">Delete</button></a></li>
+                      </ul>
+                    </div>
+                  </td>
+              </tr>
+            <?php endforeach; ?>
+          </tbody>
+        </table>
       </div>
 
       <!-- loader -->
